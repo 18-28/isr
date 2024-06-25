@@ -1,26 +1,30 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
+import StoryblokClient from 'storyblok-js-client'
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(props) {
-  console.log(props)
+
   return (
     <>
-      <h1>home</h1>
+      <h1>{props.data.data.story.content.body[0].text}</h1>
     </>
-
-
 );
 }
 
-// export async function getStaticProps(){
-//   const data = await fetch('https://polite-stone-0e6ccff03.4.azurestaticapps.net/api/storyblok')
-//   const json = {data: }
+export async function getStaticProps(){
+  const Storyblok = new StoryblokClient({
+    accessToken: 'GWas2MzQ7yf76pGmKaM0gwtt'
+  })
 
-//   return {
-//     props: {
-//       data
-//     }
-//   }
-// }
+  const home = await Storyblok.get('cdn/stories/home', {
+    version: 'published'
+  })
+
+  return {
+    props: {
+      data: home
+    }
+  }
+}
