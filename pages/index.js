@@ -5,7 +5,7 @@ import StoryblokClient from 'storyblok-js-client'
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(props) {
-
+  console.log(props)
   return (
     <>
       <h1>{props.data.data.story.content.body[0].text}</h1>
